@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,13 +17,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "users")
 public class User implements Serializable{
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Id
     private String username;
     private String password;
     private String name;
     private String email;
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Role> roles = new ArrayList<>();
+    @OneToMany(mappedBy = "users" , fetch = FetchType.EAGER)
+    List<Authority> authorities;
 }

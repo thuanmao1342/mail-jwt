@@ -16,7 +16,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity(name = "roles")
 public class Role implements Serializable{
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
 	private String id;
 	private String name;
+	@JsonIgnore
+	@OneToMany(mappedBy = "roles")
+	List<Authority> authorities;
 }

@@ -1,7 +1,7 @@
 package com.vn.demo.service.userService.impl;
 
-import com.vn.demo.DAO.RoleDAO;
-import com.vn.demo.DAO.UserDAO;
+import com.vn.demo.repository.role.RoleRepo;
+import com.vn.demo.repository.user.UserRepo;
 import com.vn.demo.entity.Role;
 import com.vn.demo.entity.User;
 import com.vn.demo.service.userService.UserSevice;
@@ -13,8 +13,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 @Service @RequiredArgsConstructor @Transactional @Slf4j
 public class UserServiceImpl implements UserSevice {
-    private final UserDAO userDAO;
-    private final RoleDAO roleDAO;
+    private final UserRepo userDAO;
+    private final RoleRepo roleDAO;
     @Override
     public User saveUser(User user) {
         log.info("may da luu them nguoi dung {}", user.getName());
@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserSevice {
         log.info("may da luu them nguoi dung {} va {}", username,roleName);
         User user = userDAO.findByUsername(username);
         Role role = roleDAO.findByName(roleName);
-        user.getRoles().add(role);
     }
 
     @Override
