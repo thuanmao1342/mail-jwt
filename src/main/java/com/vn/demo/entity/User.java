@@ -23,6 +23,6 @@ public class User implements Serializable{
     private String name;
     private String email;
     @JsonIgnore
-    @OneToMany(mappedBy = "users" , fetch = FetchType.EAGER)
-    List<Authority> authorities;
+    @OneToMany(mappedBy = "user")
+    List<Authority> authority;
 }

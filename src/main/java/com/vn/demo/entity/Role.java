@@ -14,12 +14,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "roles")
+@Entity
+@Table(name = "roles")
 public class Role implements Serializable{
 	@Id
 	private String id;
 	private String name;
 	@JsonIgnore
-	@OneToMany(mappedBy = "roles")
-	List<Authority> authorities;
+	@OneToMany(mappedBy = "role")
+	List<Authority> authority;
 }

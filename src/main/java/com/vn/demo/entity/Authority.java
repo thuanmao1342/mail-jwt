@@ -6,18 +6,20 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+@SuppressWarnings("serial")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "authorities")
+@Entity
+@Table(name = "authorities", uniqueConstraints = {
+		@UniqueConstraint(columnNames = {"username", "roleid"})
+})
 public class Authority implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "roleid")
+    @ManyToOne @JoinColumn(name = "roleid")
     private Role role;
-    @ManyToOne
-    @JoinColumn(name = "username")
+    @ManyToOne @JoinColumn(name = "username")
     private User user;
 }
