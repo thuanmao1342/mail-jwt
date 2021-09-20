@@ -1,8 +1,11 @@
 package com.vn.demo.controller;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import com.vn.demo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,8 +17,12 @@ public class HomeController {
 	UserRepo userRepo;
 	@RequestMapping("index")
 	public String index() {
-		Optional<com.vn.demo.entity.User> user = userRepo.findById("thuan");
-		System.out.println("da chay"+user.get().getName());
+		User user = userRepo.findByUsername("thuan");
+		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		user.getAuthority().forEach(role -> {
+			authorities.add(new SimpleGrantedAuthority(role.getRole().getName()));
+			System.out.println(role.getRole().getName());
+		});
 		return "home/index";
 	}
 
